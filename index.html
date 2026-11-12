@@ -4,9 +4,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Autopilot Forex | Autopips Markets</title>
 <meta name="description" content="Autopilot Forex - Forex education, market analysis and automated trading solutions.">
 <meta name="theme-color" content="#071426">
+
 <link rel="icon" type="image/png" href="logo.png">
 
 <style>
@@ -19,81 +21,344 @@
   --panel:#10243a;
   --border:#203a53;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--navy);color:var(--white);font-family:Arial,sans-serif;line-height:1.6}
-a{text-decoration:none;color:inherit}
-.container{width:92%;max-width:1150px;margin:auto}
-header{background:var(--navy);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-nav{min-height:76px;display:flex;justify-content:space-between;align-items:center;gap:15px}
-.brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:bold}
-.brand img{width:48px;height:48px;object-fit:contain}
-.brand span,h1 span,h2 span{color:var(--green)}
-.nav-links{display:flex;gap:20px}
-.nav-links a{color:var(--muted);font-size:13px}
-.nav-links a:hover{color:var(--green)}
-.btn{padding:11px 18px;border-radius:8px;border:1px solid var(--green);background:transparent;color:white;cursor:pointer;font-weight:bold}
-.btn.primary{background:var(--green);color:var(--navy)}
-.menu-btn{display:none}
-.hero{padding:90px 0 75px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.eyebrow{color:var(--green);text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:bold}
-h1{font-size:clamp(40px,6vw,65px);line-height:1.1;margin:18px 0}
-.hero p,section p{color:var(--muted)}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
-.terminal,.card,.dashboard{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px}
-.terminal h2,.card h3{color:var(--green)}
-.price{font-size:32px;font-weight:bold;margin:15px 0}
-.positive{color:var(--green)}
-.demo{color:var(--gold);font-size:11px}
-section{padding:65px 0}
-.section-title{font-size:32px;margin:10px 0}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:25px}
-.card h3{margin:12px 0}
-.card p{font-size:14px}
-.vip{background:linear-gradient(120deg,#102e3d,#10243a);border:1px solid var(--gold);padding:35px;border-radius:16px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
-.vip h2{font-size:32px;margin:12px 0}
-.vip ul{padding-left:20px;color:var(--muted);margin:20px 0}
-.vip li{margin:9px 0}
-.price-box{background:var(--navy);border:1px solid var(--gold);border-radius:12px;padding:25px}
-.price-box h3{font-size:35px;color:var(--gold)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
-.stat{background:var(--navy);padding:18px;border-radius:10px}
-.stat h3{color:var(--green);font-size:23px}
-.contact{text-align:center;background:var(--panel);border-radius:15px;padding:40px 20px}
-footer{border-top:1px solid var(--border);padding:35px 0;color:var(--muted);font-size:13px;text-align:center}
-.footer-brand{color:white;font-weight:bold;font-size:20px;margin-bottom:12px}
-.footer-brand span{color:var(--green)}
-.risk{margin-top:25px;padding:15px;border:1px solid #69552b;border-radius:8px;color:#d7c99e;font-size:11px}
-.modal{display:none;position:fixed;inset:0;z-index:200;background:#000c;align-items:center;justify-content:center;padding:20px}
-.modal.show{display:flex}
-.modal-content{background:var(--panel);border:1px solid var(--green);border-radius:14px;padding:25px;width:100%;max-width:420px}
-.modal-content input{width:100%;padding:13px;margin:8px 0;border:1px solid var(--border);border-radius:7px;background:var(--navy);color:white}
-.modal-content button{margin-top:12px}
-.modal-note{font-size:11px;color:var(--gold);margin-top:12px}
-@media(max-width:800px){
-.hero,.vip{grid-template-columns:1fr}
-.cards{grid-template-columns:1fr 1fr}
-.nav-links{display:none;position:absolute;top:76px;left:0;width:100%;padding:20px;background:var(--navy);flex-direction:column}
-.nav-links.show{display:flex}
-.menu-btn{display:inline-block}
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
-@media(max-width:520px){
-.cards,.stats{grid-template-columns:1fr}
-.hero{padding-top:55px}
-.brand{font-size:15px}
-.brand img{width:40px;height:40px}
+
+html { scroll-behavior:smooth; }
+
+body {
+  background:var(--navy);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+  line-height:1.6;
+}
+
+a { text-decoration:none;color:inherit; }
+
+.container {
+  width:92%;
+  max-width:1150px;
+  margin:auto;
+}
+
+header {
+  background:var(--navy);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+nav {
+  min-height:76px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:19px;
+  font-weight:bold;
+}
+
+.brand img {
+  width:48px;
+  height:48px;
+  object-fit:contain;
+}
+
+.brand span,h1 span,h2 span {
+  color:var(--green);
+}
+
+.nav-links {
+  display:flex;
+  gap:20px;
+}
+
+.nav-links a {
+  color:var(--muted);
+  font-size:13px;
+}
+
+.nav-links a:hover { color:var(--green); }
+
+.btn {
+  padding:11px 18px;
+  border-radius:8px;
+  border:1px solid var(--green);
+  background:transparent;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.btn.primary {
+  background:var(--green);
+  color:var(--navy);
+}
+
+.btn:disabled {
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.menu-btn { display:none; }
+
+.hero {
+  padding:90px 0 75px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:center;
+}
+
+.eyebrow {
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+h1 {
+  font-size:clamp(40px,6vw,65px);
+  line-height:1.1;
+  margin:18px 0;
+}
+
+.hero p,section p { color:var(--muted); }
+
+.hero-actions {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+
+.terminal,.card,.dashboard {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:24px;
+}
+
+.terminal h2,.card h3 { color:var(--green); }
+
+.price {
+  font-size:32px;
+  font-weight:bold;
+  margin:15px 0;
+}
+
+.positive { color:var(--green); }
+
+.demo {
+  color:var(--gold);
+  font-size:11px;
+}
+
+section { padding:65px 0; }
+
+.section-title {
+  font-size:32px;
+  margin:10px 0;
+}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:25px;
+}
+
+.card h3 { margin:12px 0; }
+.card p { font-size:14px; }
+
+.vip {
+  background:linear-gradient(120deg,#102e3d,#10243a);
+  border:1px solid var(--gold);
+  padding:35px;
+  border-radius:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+}
+
+.vip h2 {
+  font-size:32px;
+  margin:12px 0;
+}
+
+.vip ul {
+  padding-left:20px;
+  color:var(--muted);
+  margin:20px 0;
+}
+
+.vip li { margin:9px 0; }
+
+.price-box {
+  background:var(--navy);
+  border:1px solid var(--gold);
+  border-radius:12px;
+  padding:25px;
+}
+
+.price-box h3 {
+  font-size:35px;
+  color:var(--gold);
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:20px;
+}
+
+.stat {
+  background:var(--navy);
+  padding:18px;
+  border-radius:10px;
+}
+
+.stat h3 {
+  color:var(--green);
+  font-size:23px;
+}
+
+.contact {
+  text-align:center;
+  background:var(--panel);
+  border-radius:15px;
+  padding:40px 20px;
+}
+
+footer {
+  border-top:1px solid var(--border);
+  padding:35px 0;
+  color:var(--muted);
+  font-size:13px;
+  text-align:center;
+}
+
+.footer-brand {
+  color:white;
+  font-weight:bold;
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.footer-brand span { color:var(--green); }
+
+.risk {
+  margin-top:25px;
+  padding:15px;
+  border:1px solid #69552b;
+  border-radius:8px;
+  color:#d7c99e;
+  font-size:11px;
+}
+
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:#000c;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.show { display:flex; }
+
+.modal-content {
+  background:var(--panel);
+  border:1px solid var(--green);
+  border-radius:14px;
+  padding:25px;
+  width:100%;
+  max-width:420px;
+}
+
+.modal-content input {
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid var(--border);
+  border-radius:7px;
+  background:var(--navy);
+  color:white;
+}
+
+.modal-content button { margin-top:12px; }
+
+.modal-note {
+  font-size:11px;
+  color:var(--gold);
+  margin-top:12px;
+}
+
+#authMessage {
+  color:var(--green);
+  font-size:13px;
+  margin-top:12px;
+}
+
+#userInfo {
+  margin-top:15px;
+  overflow-wrap:anywhere;
+}
+
+@media(max-width:800px) {
+  .hero,.vip { grid-template-columns:1fr; }
+  .cards { grid-template-columns:1fr 1fr; }
+
+  .nav-links {
+    display:none;
+    position:absolute;
+    top:76px;
+    left:0;
+    width:100%;
+    padding:20px;
+    background:var(--navy);
+    flex-direction:column;
+  }
+
+  .nav-links.show { display:flex; }
+  .menu-btn { display:inline-block; }
+}
+
+@media(max-width:520px) {
+  .cards,.stats { grid-template-columns:1fr; }
+  .hero { padding-top:55px; }
+  .brand { font-size:15px; }
+  .brand img { width:40px;height:40px; }
 }
 </style>
 </head>
 
 <body>
+
 <header>
 <div class="container">
 <nav>
+
 <a href="#home" class="brand">
 <img src="logo.png" alt="Autopilot Forex Logo">
 <div>AUTOPILOT <span>FOREX</span></div>
 </a>
+
 <div class="nav-links" id="navLinks">
 <a href="#markets">Markets</a>
 <a href="#analysis">Analysis</a>
@@ -102,82 +367,155 @@ footer{border-top:1px solid var(--border);padding:35px 0;color:var(--muted);font
 <a href="#dashboard">Dashboard</a>
 <a href="#contact">Contact</a>
 </div>
+
 <div>
-<button class="btn primary" onclick="openModal('register')">Get Started</button>
+<button class="btn primary" onclick="openModal('register')">
+Get Started
+</button>
+
 <button class="btn menu-btn" onclick="toggleMenu()">☰</button>
 </div>
+
 </nav>
 </div>
 </header>
 
 <main id="home">
+
 <div class="container hero">
+
 <div>
 <div class="eyebrow">AUTOPIPS MARKETS PRESENTS</div>
+
 <h1>Trade smarter.<br><span>Not harder.</span></h1>
-<p>Welcome to Autopilot Forex. Discover forex market insights, Gold analysis, trading education and automated trading solutions. Build discipline and make informed trading decisions.</p>
+
+<p>
+Welcome to Autopilot Forex. Discover forex market insights,
+Gold analysis, trading education and automated trading
+solutions. Build discipline and make informed trading decisions.
+</p>
+
 <div class="hero-actions">
 <a href="#analysis" class="btn primary">Explore Markets</a>
-<button class="btn" onclick="openModal('register')">Create Account</button>
+<button class="btn" onclick="openModal('register')">
+Create Account
+</button>
 </div>
 </div>
+
 <div class="terminal">
 <h2>AUTOPILOT MARKET SNAPSHOT</h2>
 <p class="demo">DEMO MARKET DATA — NOT LIVE</p>
+
 <div class="price">2,384.60</div>
 <div class="positive">+0.42% XAU/USD</div>
+
 <hr style="border-color:#203a53;margin:20px 0">
+
 <p>EUR/USD — 1.0842</p>
 <p>GBP/USD — 1.2718</p>
 <p>USD/JPY — 149.62</p>
 </div>
+
 </div>
 
 <section id="markets">
 <div class="container">
+
 <div class="eyebrow">Market Watch</div>
 <h2 class="section-title">Explore the markets.</h2>
 <p>Sample market information for educational purposes.</p>
+
 <div class="cards">
-<div class="card"><h3>EUR/USD</h3><div class="price">1.0842</div><p>Euro against the US dollar.</p></div>
-<div class="card"><h3>Gold / USD</h3><div class="price">2,384.60</div><p>Gold priced in US dollars.</p></div>
-<div class="card"><h3>GBP/USD</h3><div class="price">1.2718</div><p>British pound against the US dollar.</p></div>
+
+<div class="card">
+<h3>EUR/USD</h3>
+<div class="price">1.0842</div>
+<p>Euro against the US dollar.</p>
+</div>
+
+<div class="card">
+<h3>Gold / USD</h3>
+<div class="price">2,384.60</div>
+<p>Gold priced in US dollars.</p>
+</div>
+
+<div class="card">
+<h3>GBP/USD</h3>
+<div class="price">1.2718</div>
+<p>British pound against the US dollar.</p>
+</div>
+
 </div>
 </div>
 </section>
 
 <section id="analysis">
 <div class="container">
+
 <div class="eyebrow">Research Desk</div>
 <h2 class="section-title">Analysis with a plan.</h2>
 <p>Educational market commentary and trading research.</p>
+
 <div class="cards">
-<div class="card"><h3>Gold Analysis</h3><p>Explore Gold market structure, support, resistance and important economic events.</p></div>
-<div class="card"><h3>Forex Analysis</h3><p>Study currency pairs, price movements and market trends.</p></div>
-<div class="card"><h3>Risk Management</h3><p>Learn position sizing, stop losses, risk-to-reward and trading psychology.</p></div>
+
+<div class="card">
+<h3>Gold Analysis</h3>
+<p>Explore Gold market structure, support, resistance and important economic events.</p>
+</div>
+
+<div class="card">
+<h3>Forex Analysis</h3>
+<p>Study currency pairs, price movements and market trends.</p>
+</div>
+
+<div class="card">
+<h3>Risk Management</h3>
+<p>Learn position sizing, stop losses, risk-to-reward and trading psychology.</p>
+</div>
+
 </div>
 </div>
 </section>
 
 <section id="education">
 <div class="container">
+
 <div class="eyebrow">Trading Education</div>
 <h2 class="section-title">Build your trading skills.</h2>
+
 <div class="cards">
-<div class="card"><h3>01. Forex Foundations</h3><p>Learn currency pairs, pips, spreads and leverage.</p></div>
-<div class="card"><h3>02. Technical Analysis</h3><p>Understand charts, trends and indicators.</p></div>
-<div class="card"><h3>03. Trading Psychology</h3><p>Develop discipline and consistent trading habits.</p></div>
+
+<div class="card">
+<h3>01. Forex Foundations</h3>
+<p>Learn currency pairs, pips, spreads and leverage.</p>
+</div>
+
+<div class="card">
+<h3>02. Technical Analysis</h3>
+<p>Understand charts, trends and indicators.</p>
+</div>
+
+<div class="card">
+<h3>03. Trading Psychology</h3>
+<p>Develop discipline and consistent trading habits.</p>
+</div>
+
 </div>
 </div>
 </section>
 
 <section id="vip">
 <div class="container">
+
 <div class="vip">
+
 <div>
 <div class="eyebrow">AUTOPILOT VIP</div>
 <h2>Go deeper with VIP.</h2>
+
 <p>Access premium educational resources and structured market research.</p>
+
 <ul>
 <li>Detailed Gold and forex analysis</li>
 <li>Member educational sessions</li>
@@ -186,684 +524,490 @@ footer{border-top:1px solid var(--border);padding:35px 0;color:var(--muted);font
 <li>Priority community discussions</li>
 </ul>
 </div>
+
 <div class="price-box">
 <div class="eyebrow">Proposed Membership</div>
 <h3>$19 / month</h3>
 <p>Illustrative price. Payment integration is pending.</p>
-<button class="btn primary" onclick="openModal('vip')">Join Autopilot VIP</button>
+
+<button class="btn primary" onclick="openModal('vip')">
+Join Autopilot VIP
+</button>
+
 <p class="demo">Demo checkout only. No payment is taken.</p>
 </div>
+
 </div>
 </div>
 </section>
 
 <section id="dashboard">
 <div class="container">
+
 <div class="eyebrow">Member Area</div>
 <h2 class="section-title">Your trading dashboard.</h2>
+
 <div class="dashboard">
+
+<div id="guestView">
 <p>Account overview — DEMO</p>
+
 <div class="stats">
-<div class="stat"><p>Demo Balance</p><h3>$10,250</h3></div>
-<div class="stat"><p>Sample Return</p><h3>+2.5%</h3></div>
-<div class="stat"><p>Sample Trades</p><h3>24</h3></div>
+
+<div class="stat">
+<p>Demo Balance</p>
+<h3>$10,250</h3>
 </div>
-<p style="margin-top:20px">Future features: account management, automated trading integration, trade history and performance analytics.</p>
-<button class="btn primary" onclick="openModal('login')">Member Login</button>
+
+<div class="stat">
+<p>Sample Return</p>
+<h3>+2.5%</h3>
+</div>
+
+<div class="stat">
+<p>Sample Trades</p>
+<h3>24</h3>
+</div>
+
+</div>
+
+<p style="margin-top:20px">
+Demo figures only. Your personal trading information
+will be connected in a future update.
+</p>
+
+<button class="btn primary" onclick="openModal('login')">
+Member Login
+</button>
+</div>
+
+<div id="memberView" hidden>
+<h3 id="welcomeMessage"></h3>
+<div id="userInfo"></div>
+<p class="positive" style="margin-top:15px">
+You are logged in to Autopilot Forex.
+</p>
+<button class="btn primary" onclick="logoutUser()">
+Log Out
+</button>
+</div>
+
 </div>
 </div>
 </section>
 
 <section id="contact">
 <div class="container">
+
 <div class="contact">
 <div class="eyebrow">Get in Touch</div>
+
 <h2 class="section-title">Welcome to Autopilot Forex.</h2>
+
 <p>Questions about our platform? Contact our team.</p>
-<button class="btn primary" onclick="alert('Customer support will be connected before launch.')">Contact Autopilot Forex</button>
+
+<button class="btn primary"
+onclick="alert('Customer support will be connected before launch.')">
+Contact Autopilot Forex
+</button>
 </div>
-<div class="risk"><strong>Risk Disclosure:</strong> Forex and CFD trading involve substantial risk. You can lose your invested capital. Educational content is not financial advice. All market prices and dashboard figures on this prototype are illustrative and are not live trading data.</div>
+
+<div class="risk">
+<strong>Risk Disclosure:</strong>
+Forex and CFD trading involve substantial risk.
+You can lose your invested capital.
+Educational content is not financial advice.
+All market prices and dashboard figures on this prototype
+are illustrative and are not live trading data.
+</div>
+
 </div>
 </section>
+
 </main>
 
 <footer>
 <div class="container">
-<div class="footer-brand">AUTOPILOT <span>FOREX</span></div>
+
+<div class="footer-brand">
+AUTOPILOT <span>FOREX</span>
+</div>
+
 <p>Powered by Autopips Markets</p>
 <p>© 2026 Autopilot Forex. All rights reserved.</p>
 <p>Privacy | Terms | Risk Disclosure</p>
+
 </div>
 </footer>
 
+<!-- AUTHENTICATION MODAL -->
+
 <div class="modal" id="modal">
+
 <div class="modal-content">
+
 <h2 id="modalTitle">Welcome</h2>
+
 <p id="modalDescription">Autopilot Forex member area.</p>
+
 <div id="modalFields"></div>
-<button class="btn primary" onclick="submitModal()">Continue</button>
-<button class="btn" onclick="closeModal()">Cancel</button>
-<p class="modal-note">Prototype only. No information is sent to a server.</p>
+
+<p id="authMessage" role="status"></p>
+
+<button class="btn primary" id="submitButton"
+onclick="submitModal()">
+Continue
+</button>
+
+<button class="btn" onclick="closeModal()">
+Cancel
+</button>
+
+<p class="modal-note">
+Secure account authentication powered by Supabase.
+</p>
+
 </div>
 </div>
 
-<
 <!-- SUPABASE LIBRARY -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-// ===================================
-// AUTOPILOT FOREX AUTHENTICATION
-// ===================================
 
-const SUPABASE_URL = "https://phlaulrdmxwsfmorfxxr.supabase.co";
+// =====================================
+// AUTOPILOT FOREX - SUPABASE AUTH
+// =====================================
 
-const SUPABASE_KEY = "sb_publishable_BfKynqSDB3RxUN8-_J8oQQ_k3sPnWyu";
+const SUPABASE_URL =
+"https://phlaulrdmxwsfmorfxxr.supabase.co";
 
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+const SUPABASE_KEY =
+"sb_publishable_BfKynqSDB3RxUN8-_J8oQQ_k3sPnWyu";
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 let currentMode = "register";
 
 // MOBILE MENU
+
 function toggleMenu() {
-    document.getElementById("navLinks").classList.toggle("show");
+document.getElementById("navLinks").classList.toggle("show");
 }
 
-// OPEN REGISTRATION / LOGIN / VIP
+// OPEN MODAL
+
 function openModal(mode) {
-    currentMode = mode;
 
-    const modal = document.getElementById("modal");
-    const title = document.getElementById("modalTitle");
-    const description = document.getElementById("modalDescription");
-    const fields = document.getElementById("modalFields");
+currentMode = mode;
 
-    if (mode === "register") {
-        title.textContent = "Create Your Account";
-        description.textContent = "Join Autopilot Forex.";
+const modal = document.getElementById("modal");
+const title = document.getElementById("modalTitle");
+const description = document.getElementById("modalDescription");
+const fields = document.getElementById("modalFields");
+const message = document.getElementById("authMessage");
+const submit = document.getElementById("submitButton");
 
-        fields.innerHTML = `
-            <input id="name" placeholder="Full name" required>
-            <input id="email" type="email" placeholder="Email address" required>
-            <input id="password" type="password" placeholder="Password (minimum 8 characters)" required>
-        `;
+message.textContent = "";
+submit.disabled = false;
+submit.textContent = mode === "login" ? "Log In" :
+mode === "register" ? "Create Account" : "Continue";
 
-    } else if (mode === "login") {
-        title.textContent = "Member Login";
-        description.textContent = "Welcome back to Autopilot Forex.";
+if (mode === "register") {
 
-        fields.innerHTML = `
-            <input id="email" type="email" placeholder="Email address" required>
-            <input id="password" type="password" placeholder="Password" required>
-        `;
+title.textContent = "Create Your Account";
+description.textContent = "Join Autopilot Forex.";
 
-    } else {
-        title.textContent = "Autopilot VIP";
-        description.textContent = "VIP membership registration.";
+fields.innerHTML = `
+<input id="name" type="text"
+placeholder="Full name" autocomplete="name" required>
 
-        fields.innerHTML = `
-            <input id="email" type="email" placeholder="Email address" required>
-        `;
-    }
+<input id="email" type="email"
+placeholder="Email address" autocomplete="email" required>
 
-    modal.classList.add("show");
+<input id="password" type="password"
+placeholder="Password (minimum 8 characters)"
+autocomplete="new-password" required>
+`;
+
+} else if (mode === "login") {
+
+title.textContent = "Member Login";
+description.textContent = "Welcome back to Autopilot Forex.";
+
+fields.innerHTML = `
+<input id="email" type="email"
+placeholder="Email address" autocomplete="email" required>
+
+<input id="password" type="password"
+placeholder="Password" autocomplete="current-password" required>
+`;
+
+} else {
+
+title.textContent = "Autopilot VIP";
+description.textContent = "VIP membership preview.";
+
+fields.innerHTML = `
+<input id="email" type="email"
+placeholder="Email address" autocomplete="email" required>
+`;
+
+}
+
+modal.classList.add("show");
 }
 
 // CLOSE MODAL
+
 function closeModal() {
-    document.getElementById("modal").classList.remove("show");
+document.getElementById("modal").classList.remove("show");
 }
 
-// REGISTER AND LOGIN
+// AUTHENTICATION
+
 async function submitModal() {
 
-    const email = document.getElementById("email")?.value.trim();
-    const password = document.getElementById("password")?.value;
-    const name = document.getElementById("name")?.value.trim();
+const email =
+document.getElementById("email")?.value.trim();
 
-    if (!email || !email.includes("@")) {
-        alert("Please enter a valid email address.");
-        return;
-    }
+const password =
+document.getElementById("password")?.value;
 
-    try {
+const name =
+document.getElementById("name")?.value.trim();
 
-        // REGISTRATION
-        if (currentMode === "register") {
+const message =
+document.getElementById("authMessage");
 
-            if (!name || !password || password.length < 8) {
-                alert("Enter your name and a password of at least 8 characters.");
-                return;
-            }
+const submit =
+document.getElementById("submitButton");
 
-            const { error } = await supabaseClient.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    data: {
-                        full_name: name
-                    },
-                    emailRedirectTo:
-                        window.location.origin + window.location.pathname
-                }
-            });
+message.textContent = "";
 
-            if (error) throw error;
+if (!email || !email.includes("@")) {
+message.textContent = "Please enter a valid email address.";
+return;
+}
 
-            alert("Registration successful! Please check your email for verification.");
-            closeModal();
-        }
+if (currentMode === "register") {
 
-        // LOGIN
-        else if (currentMode === "login") {
+if (!name || !password || password.length < 8) {
+message.textContent =
+"Enter your name and a password of at least 8 characters.";
+return;
+}
 
-            if (!password) {
-                alert("Please enter your password.");
-                return;
-            }
+} else if (currentMode === "login") {
 
-            const { data, error } =
-                await supabaseClient.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
+if (!password) {
+message.textContent = "Please enter your password.";
+return;
+}
 
-            if (error) throw error;
+}
 
-            alert("Welcome to Autopilot Forex!");
+submit.disabled = true;
+submit.textContent = "Please wait...";
 
-            closeModal();
-            updateDashboard(data.user);
-        }
+try {
 
-        // VIP
-        else {
-            alert("VIP payment integration is coming soon. No payment has been taken.");
-            closeModal();
-        }
+// REGISTRATION
 
-    } catch (error) {
-        alert(error.message);
-    }
+if (currentMode === "register") {
+
+const { data, error } =
+await supabaseClient.auth.signUp({
+
+email: email,
+password: password,
+
+options: {
+data: {
+full_name: name
+},
+
+emailRedirectTo:
+window.location.origin +
+window.location.pathname
+}
+
+});
+
+if (error) throw error;
+
+if (data.session) {
+
+alert("Your account has been created successfully!");
+closeModal();
+updateDashboard(data.user);
+
+} else {
+
+message.textContent =
+"Registration successful! Please check your email and verify your account before logging in.";
+
+}
+
+}
+
+// LOGIN
+
+else if (currentMode === "login") {
+
+const { data, error } =
+await supabaseClient.auth.signInWithPassword({
+
+email: email,
+password: password
+
+});
+
+if (error) throw error;
+
+alert("Welcome to Autopilot Forex!");
+
+closeModal();
+updateDashboard(data.user);
+
+}
+
+// VIP PREVIEW
+
+else {
+
+message.textContent =
+"VIP payment integration is coming soon. No payment has been taken.";
+
+}
+
+} catch (error) {
+
+message.textContent = error.message;
+
+} finally {
+
+submit.disabled = false;
+
+submit.textContent =
+currentMode === "login" ? "Log In" :
+currentMode === "register" ? "Create Account" : "Continue";
+
+}
+
 }
 
 // UPDATE MEMBER DASHBOARD
+
 function updateDashboard(user) {
 
-    const dashboard = document.querySelector("#dashboard .dashboard");
+if (!user) return;
 
-    if (!dashboard) return;
+const guestView = document.getElementById("guestView");
+const memberView = document.getElementById("memberView");
 
-    const heading = document.createElement("h3");
-    heading.textContent =
-        "Welcome, " + (user.user_metadata?.full_name || user.email);
+guestView.hidden = true;
+memberView.hidden = false;
 
-    const message = document.createElement("p");
-    message.textContent = "You are logged in to Autopilot Forex.";
+document.getElementById("welcomeMessage").textContent =
+"Welcome, " +
+(user.user_metadata?.full_name || user.email) + "!";
 
-    const email = document.createElement("p");
-    email.textContent = user.email;
+document.getElementById("userInfo").textContent =
+"Email: " + user.email;
 
-    const logout = document.createElement("button");
-    logout.className = "btn primary";
-    logout.textContent = "Log Out";
-    logout.style.marginTop = "20px";
-    logout.onclick = logoutUser;
-
-    dashboard.replaceChildren(heading, message, email, logout);
 }
 
 // LOGOUT
+
 async function logoutUser() {
 
-    const { error } = await supabaseClient.auth.signOut();
+const { error } =
+await supabaseClient.auth.signOut();
 
-    if (error) {
-        alert(error.message);
-        return;
-    }
+if (error) {
+alert(error.message);
+return;
+}
 
-    alert("You have logged out successfully.");
+alert("You have logged out successfully.");
 
-    window.location.reload();
+document.getElementById("memberView").hidden = true;
+document.getElementById("guestView").hidden = false;
+
 }
 
 // CHECK EXISTING LOGIN SESSION
+
 async function checkLogin() {
 
-    try {
-        const { data, error } = await supabaseClient.auth.getUser();
+try {
 
-        if (error) throw error;
+const { data, error } =
+await supabaseClient.auth.getSession();
 
-        if (data.user) {
-            updateDashboard(data.user);
-        }
+if (error) throw error;
 
-    } catch (error) {
-        console.error("Login check:", error.message);
-    }
+if (data.session) {
+updateDashboard(data.session.user);
+}
+
+} catch (error) {
+
+console.error("Login check:", error.message);
+
+}
+
 }
 
 // CLOSE MODAL WHEN CLICKING OUTSIDE
-document.getElementById("modal").addEventListener("click", function(event) {
 
-    if (event.target.id === "modal") {
-        closeModal();
-    }
+document.getElementById("modal").addEventListener(
+"click",
+function(event) {
+
+if (event.target.id === "modal") {
+closeModal();
+}
+
+}
+);
+
+// CLOSE MOBILE MENU AFTER NAVIGATION
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+
+link.addEventListener("click", () => {
+document.getElementById("navLinks").classList.remove("show");
+});
 
 });
 
 // CHECK LOGIN WHEN WEBSITE LOADS
+
 checkLogin();
+
+// TRACK AUTHENTICATION CHANGES
+
+supabaseClient.auth.onAuthStateChange((event, session) => {
+
+if (event === "SIGNED_IN" && session) {
+updateDashboard(session.user);
+}
+
+if (event === "SIGNED_OUT") {
+document.getElementById("memberView").hidden = true;
+document.getElementById("guestView").hidden = false;
+}
+
+});
 
 </script>
 
-</body>
-</html>
->
-<script src=
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const SUPABASE_URL = "https://phlaulrdmxwsfmorfxxr.supabase.co";
-
-const SUPABASE_KEY = "sb_publishable_BfKynqSDB3RxUN8-_J8oQQ_k3sPnWyu";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-let currentMode = "register";
-
-function toggleMenu() {
-  document.getElementById("navLinks").classList.toggle("show");
-}
-
-function openModal(mode) {
-  currentMode = mode;
-
-  const modal = document.getElementById("modal");
-  const title = document.getElementById("modalTitle");
-  const description = document.getElementById("modalDescription");
-  const fields = document.getElementById("modalFields");
-
-  if (mode === "register") {
-    title.textContent = "Create Your Account";
-    description.textContent = "Join Autopilot Forex.";
-
-    fields.innerHTML = `
-      <input id="name" placeholder="Full name">
-      <input id="email" type="email" placeholder="Email address">
-      <input id="password" type="password" placeholder="Password">
-    `;
-  } else if (mode === "login") {
-    title.textContent = "Member Login";
-    description.textContent = "Welcome back.";
-
-    fields.innerHTML = `
-      <input id="email" type="email" placeholder="Email address">
-      <input id="password" type="password" placeholder="Password">
-    `;
-  } else {
-    title.textContent = "Autopilot VIP";
-    description.textContent = "VIP membership registration.";
-
-    fields.innerHTML = `
-      <input id="email" type="email" placeholder="Email address">
-    `;
-  }
-
-  modal.classList.add("show");
-}
-
-function closeModal() {
-  document.getElementById("modal").classList.remove("show");
-}
-
-async function submitModal() {
-  const email = document.getElementById("email")?.value.trim();
-  const password = document.getElementById("password")?.value;
-  const name = document.getElementById("name")?.value.trim();
-
-  if (!email || !email.includes("@")) {
-    alert("Enter a valid email address.");
-    return;
-  }
-
-  if (currentMode === "register") {
-    if (!name || !password || password.length < 8) {
-      alert("Enter your name and a password of at least 8 characters.");
-      return;
-    }
-
-    const { error } = await supabaseClient.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: name },
-        emailRedirectTo: window.location.origin +
-          window.location.pathname
-      }
-    });
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    alert("Registration received! Check your email for verification.");
-    closeModal();
-
-  } else if (currentMode === "login") {
-    if (!password) {
-      alert("Enter your password.");
-      return;
-    }
-
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-      });
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    alert("Welcome to Autopilot Forex!");
-    closeModal();
-    updateDashboard(data.user);
-
-  } else {
-    alert("VIP payment integration is coming soon.");
-    closeModal();
-  }
-}
-
-function updateDashboard(user) {
-  const dashboard = document.querySelector("#dashboard .dashboard");
-
-  if (!dashboard) return;
-
-  const welcome = document.createElement("h3");
-  welcome.textContent =
-    "Welcome, " + (user.user_metadata?.full_name || user.email) + "!";
-
-  const message = document.createElement("p");
-  message.textContent = "You're logged in to Autopilot Forex.";
-
-  const email = document.createElement("p");
-  email.textContent = user.email;
-
-  const logout = document.createElement("button");
-  logout.className = "btn primary";
-  logout.textContent = "Log Out";
-  logout.onclick = logoutUser;
-
-  dashboard.replaceChildren(welcome, message, email, logout);
-}
-
-async function logoutUser() {
-  const { error } = await supabaseClient.auth.signOut();
-
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  alert("You have logged out.");
-  window.location.reload();
-}
-
-async function checkLogin() {
-  const { data, error } = await supabaseClient.auth.getUser();
-
-  if (error) {
-    console.error(error.message);
-    return;
-  }
-
-  if (data.user) {
-    updateDashboard(data.user);
-  }
-}
-
-document.getElementById("modal").addEventListener("click", function(e) {
-  if (e.target.id === "modal") {
-    closeModal();
-  }
-});
-
-checkLogin();
-</script>
-
-</body>
-</html>
-
-
-
-</scriptcheckLogin();>
-const SUPABASE_URL = "https://phlaulrdmxwsfmorfxxr.supabase.co";
-
-const SUPABASE_KEY = "sb_publishable_BfKynqSDB3RxUN8-_J8oQQ_k3sPnWyu";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-function toggleMenu() {
-  document.getElementById("navLinks").classList.toggle("show");
-}
-
-let currentMode = "register";
-
-function openModal(mode) {
-  currentMode = mode;
-
-  const modal = document.getElementById("modal");
-  const title = document.getElementById("modalTitle");
-  const description = document.getElementById("modalDescription");
-  const fields = document.getElementById("modalFields");
-
-  if (mode === "register") {
-    title.textContent = "Create Your Account";
-    description.textContent = "Join Autopilot Forex.";
-
-    fields.innerHTML = `
-      <input id="name" placeholder="Full name">
-      <input id="email" type="email" placeholder="Email address">
-      <input id="password" type="password" placeholder="Password">
-    `;
-  } else if (mode === "login") {
-    title.textContent = "Member Login";
-    description.textContent = "Welcome back.";
-
-    fields.innerHTML = `
-      <input id="email" type="email" placeholder="Email address">
-      <input id="password" type="password" placeholder="Password">
-    `;
-  } else {
-    title.textContent = "Autopilot VIP";
-    description.textContent = "VIP membership registration.";
-
-    fields.innerHTML = `
-      <input id="email" type="email" placeholder="Email address">
-    `;
-  }
-
-  modal.classList.add("show");
-}
-
-function closeModal() {
-  document.getElementById("modal").classList.remove("show");
-}
-
-async function submitModal() {
-  const email = document.getElementById("email")?.value.trim();
-  const password = document.getElementById("password")?.value;
-  const name = document.getElementById("name")?.value.trim();
-
-  if (!email || !email.includes("@")) {
-    alert("Enter a valid email address.");
-    return;
-  }
-
-  if (currentMode === "register") {
-    if (!name || !password || password.length < 8) {
-      alert("Enter your name and a password of at least 8 characters.");
-      return;
-    }
-
-    const { data, error } = await supabaseClient.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        data: {
-          full_name: name
-        },
-        emailRedirectTo: window.location.origin +
-          window.location.pathname
-      }
-    });
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    alert("Registration received! Check your email for the verification link.");
-    closeModal();
-
-  } else if (currentMode === "login") {
-    if (!password) {
-      alert("Enter your password.");
-      return;
-    }
-
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    alert("Welcome to Autopilot Forex!");
-    closeModal();
-    updateDashboard(data.user);
-
-  } else {
-    alert("VIP payment registration will be connected separately.");
-    closeModal();
-  }
-}
-
-function updateDashboard(user) {
-  const dashboard = document.querySelector("#dashboard .dashboard");
-
-  if (!dashboard) return;
-
-  dashboard.innerHTML = `
-    <h3>Welcome, ${
-      user.user_metadata?.full_name || user.email
-    }!</h3>
-    <p>You're logged in to Autopilot Forex.</p>
-    <p>${user.email}</p>
-    <button class="btn primary" onclick="logoutUser()">
-      Log Out
-    </button>
-  `;
-}
-
-async function logoutUser() {
-  const { error } = await supabaseClient.auth.signOut();
-
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  alert("You have logged out.");
-  window.location.reload();
-}
-
-async function checkLogin() {
-  const { data } = await supabaseClient.auth.getUser();
-
-  if (data.user) {
-    updateDashboard(data.user);
-  }
-}
-
-document.getElementById("modal").addEventListener("click", function(e) {
-  if (e.target.id === "modal") closeModal();
-});
-
-checkLogin();
-<script>
-
-function toggleMenu(){
-document.getElementById("navLinks").classList.toggle("show");
-}
-
-let currentMode="register";
-
-function openModal(mode){
-currentMode=mode;
-const modal=document.getElementById("modal");
-const title=document.getElementById("modalTitle");
-const description=document.getElementById("modalDescription");
-const fields=document.getElementById("modalFields");
-
-if(mode==="register"){
-title.textContent="Create Your Account";
-description.textContent="Join Autopilot Forex.";
-fields.innerHTML=`
-<input id="name" placeholder="Full name">
-<input id="email" type="email" placeholder="Email address">
-<input id="password" type="password" placeholder="Password">`;
-}else if(mode==="login"){
-title.textContent="Member Login";
-description.textContent="Welcome back to Autopilot Forex.";
-fields.innerHTML=`
-<input id="email" type="email" placeholder="Email address">
-<input id="password" type="password" placeholder="Password">`;
-}else{
-title.textContent="Autopilot VIP";
-description.textContent="Preview the VIP membership.";
-fields.innerHTML=`
-<input id="email" type="email" placeholder="Email address">`;
-}
-modal.classList.add("show");
-}
-
-function closeModal(){
-document.getElementById("modal").classList.remove("show");
-}
-
-function submitModal(){
-const email=document.getElementById("email")?.value||"";
-if(!email.includes("@")){
-alert("Please enter a valid email address.");
-return;
-}
-alert("This is a website prototype. Registration, login and payments have not yet been connected.");
-closeModal();
-}
-
-document.getElementById("modal").addEventListener("click",function(e){
-if(e.target.id==="modal")closeModal();
-});
-</script>
 </body>
 </html>
