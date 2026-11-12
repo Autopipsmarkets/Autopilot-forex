@@ -248,7 +248,187 @@ footer{border-top:1px solid var(--border);padding:35px 0;color:var(--muted);font
 </div>
 
 <>
+<script src=
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://phlaulrdmxwsfmorfxxr.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_BfKynqSDB3RxUN8-_J8oQQ_k3sPnWyu";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+let currentMode = "register";
+
+function toggleMenu() {
+  document.getElementById("navLinks").classList.toggle("show");
+}
+
+function openModal(mode) {
+  currentMode = mode;
+
+  const modal = document.getElementById("modal");
+  const title = document.getElementById("modalTitle");
+  const description = document.getElementById("modalDescription");
+  const fields = document.getElementById("modalFields");
+
+  if (mode === "register") {
+    title.textContent = "Create Your Account";
+    description.textContent = "Join Autopilot Forex.";
+
+    fields.innerHTML = `
+      <input id="name" placeholder="Full name">
+      <input id="email" type="email" placeholder="Email address">
+      <input id="password" type="password" placeholder="Password">
+    `;
+  } else if (mode === "login") {
+    title.textContent = "Member Login";
+    description.textContent = "Welcome back.";
+
+    fields.innerHTML = `
+      <input id="email" type="email" placeholder="Email address">
+      <input id="password" type="password" placeholder="Password">
+    `;
+  } else {
+    title.textContent = "Autopilot VIP";
+    description.textContent = "VIP membership registration.";
+
+    fields.innerHTML = `
+      <input id="email" type="email" placeholder="Email address">
+    `;
+  }
+
+  modal.classList.add("show");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("show");
+}
+
+async function submitModal() {
+  const email = document.getElementById("email")?.value.trim();
+  const password = document.getElementById("password")?.value;
+  const name = document.getElementById("name")?.value.trim();
+
+  if (!email || !email.includes("@")) {
+    alert("Enter a valid email address.");
+    return;
+  }
+
+  if (currentMode === "register") {
+    if (!name || !password || password.length < 8) {
+      alert("Enter your name and a password of at least 8 characters.");
+      return;
+    }
+
+    const { error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: name },
+        emailRedirectTo: window.location.origin +
+          window.location.pathname
+      }
+    });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    alert("Registration received! Check your email for verification.");
+    closeModal();
+
+  } else if (currentMode === "login") {
+    if (!password) {
+      alert("Enter your password.");
+      return;
+    }
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    alert("Welcome to Autopilot Forex!");
+    closeModal();
+    updateDashboard(data.user);
+
+  } else {
+    alert("VIP payment integration is coming soon.");
+    closeModal();
+  }
+}
+
+function updateDashboard(user) {
+  const dashboard = document.querySelector("#dashboard .dashboard");
+
+  if (!dashboard) return;
+
+  const welcome = document.createElement("h3");
+  welcome.textContent =
+    "Welcome, " + (user.user_metadata?.full_name || user.email) + "!";
+
+  const message = document.createElement("p");
+  message.textContent = "You're logged in to Autopilot Forex.";
+
+  const email = document.createElement("p");
+  email.textContent = user.email;
+
+  const logout = document.createElement("button");
+  logout.className = "btn primary";
+  logout.textContent = "Log Out";
+  logout.onclick = logoutUser;
+
+  dashboard.replaceChildren(welcome, message, email, logout);
+}
+
+async function logoutUser() {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("You have logged out.");
+  window.location.reload();
+}
+
+async function checkLogin() {
+  const { data, error } = await supabaseClient.auth.getUser();
+
+  if (error) {
+    console.error(error.message);
+    return;
+  }
+
+  if (data.user) {
+    updateDashboard(data.user);
+  }
+}
+
+document.getElementById("modal").addEventListener("click", function(e) {
+  if (e.target.id === "modal") {
+    closeModal();
+  }
+});
+
+checkLogin();
+</script>
+
+</body>
+</html>
+
 
 
 </scriptcheckLogin();>
