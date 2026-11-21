@@ -1,0 +1,268 @@
+// Autopilot Forex — production schema
+// Postgres 15+ (Railway plugin)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ANALYST
+  SUPPORT
+  ADMIN
+  OWNER
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum PlanInterval {
+  MONTH
+  YEAR
+}
+
+enum SubscriptionStatus {
+  PENDING
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  EXPIRED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum SignalStatus {
+  OPEN
+  CLOSED
+  CANCELLED
+}
+
+enum SignalDirection {
+  BUY
+  SELL
+}
+
+enum PostCategory {
+  ANALYSIS
+  EDUCATION
+  ANNOUNCEMENT
+}
+
+enum EmailTokenType {
+  VERIFY_EMAIL
+  RESET_PASSWORD
+}
+
+enum MessageStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+model User {
+  id            String     @id @default(uuid()) @db.Uuid
+  email         String     @unique
+  passwordHash  String
+  fullName      String
+  role          Role       @default(USER)
+  status        UserStatus @default(ACTIVE)
+  emailVerifiedAt DateTime?
+  lastLoginAt   DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  sessions      RefreshToken[]
+  emailTokens   EmailToken[]
+  subscriptions Subscription[]
+  payments      Payment[]
+  signals       Signal[]       @relation("SignalAuthor")
+  posts         Post[]         @relation("PostAuthor")
+  auditLogs     AuditLog[]
+
+  @@index([status, role])
+  @@index([createdAt])
+}
+
+model RefreshToken {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @db.Uuid
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  userAgent String?
+  ip        String?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, revokedAt])
+  @@index([expiresAt])
+}
+
+model EmailToken {
+  id        String         @id @default(uuid()) @db.Uuid
+  userId    String         @db.Uuid
+  type      EmailTokenType
+  tokenHash String         @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime       @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+}
+
+model Plan {
+  id            String       @id @default(uuid()) @db.Uuid
+  code          String       @unique
+  name          String
+  description   String?
+  priceCents    Int
+  currency      String       @default("USD")
+  interval      PlanInterval @default(MONTH)
+  stripePriceId String?
+  features      Json         @default("[]")
+  active        Boolean      @default(true)
+  sortOrder     Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  subscriptions Subscription[]
+  payments      Payment[]
+}
+
+model Subscription {
+  id               String             @id @default(uuid()) @db.Uuid
+  userId           String             @db.Uuid
+  planId           String             @db.Uuid
+  status           SubscriptionStatus @default(PENDING)
+  provider          String            @default("manual") // stripe | intasend | manual
+  providerRef       String?
+  currentPeriodEnd DateTime?
+  cancelAtPeriodEnd Boolean           @default(false)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan     Plan      @relation(fields: [planId], references: [id])
+  payments Payment[]
+
+  @@index([userId, status])
+  @@index([providerRef])
+}
+
+model Payment {
+  id             String        @id @default(uuid()) @db.Uuid
+  userId         String        @db.Uuid
+  planId         String?       @db.Uuid
+  subscriptionId String?       @db.Uuid
+  provider       String
+  providerRef    String        @unique
+  amountCents    Int
+  currency       String        @default("USD")
+  status         PaymentStatus @default(PENDING)
+  raw            Json?
+  createdAt      DateTime      @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan         Plan?         @relation(fields: [planId], references: [id])
+  subscription Subscription? @relation(fields: [subscriptionId], references: [id])
+
+  @@index([userId, createdAt])
+}
+
+model Signal {
+  id         String          @id @default(uuid()) @db.Uuid
+  pair       String
+  direction  SignalDirection
+  timeframe  String          @default("H1")
+  entry      Float
+  stopLoss   Float?
+  takeProfit Float?
+  confidence Int             @default(50)
+  status     SignalStatus    @default(OPEN)
+  vipOnly    Boolean         @default(true)
+  notes      String?
+  resultPct  Float?
+  publishedAt DateTime       @default(now())
+  closedAt   DateTime?
+  createdById String?        @db.Uuid
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  createdBy User? @relation("SignalAuthor", fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([status, publishedAt])
+  @@index([vipOnly, publishedAt])
+}
+
+model Post {
+  id          String       @id @default(uuid()) @db.Uuid
+  slug        String       @unique
+  title       String
+  category    PostCategory @default(ANALYSIS)
+  excerpt     String?
+  body        String
+  coverUrl    String?
+  vipOnly     Boolean      @default(false)
+  published   Boolean      @default(false)
+  publishedAt DateTime?
+  authorId    String?      @db.Uuid
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  author User? @relation("PostAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([published, publishedAt])
+  @@index([category, published])
+}
+
+model ContactMessage {
+  id        String        @id @default(uuid()) @db.Uuid
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    MessageStatus @default(NEW)
+  ip        String?
+  createdAt DateTime      @default(now())
+
+  @@index([status, createdAt])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid()) @db.Uuid
+  actorId   String?  @db.Uuid
+  action    String
+  entity    String?
+  entityId  String?
+  meta      Json?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([actorId])
+  @@index([entity, entityId])
+}
+
+model Setting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
