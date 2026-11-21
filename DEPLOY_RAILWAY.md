@@ -143,3 +143,18 @@ on the public site.
 - No custom domain needed to launch; add it later under Settings → Networking.
 - Uploaded cover images are URLs, not file uploads — no volume required. If you
   later want uploads, add an S3-compatible bucket rather than a Railway volume.
+
+## 9. GitHub Pages
+
+The repository also publishes `docs/` to
+`https://autopipsmarkets.github.io/Autopilot-forex/` (Settings → Pages →
+Source: *Deploy from a branch* → `main` / `/docs`).
+
+That build is the **marketing site only**. Pages cannot run the API, so on that
+domain the banner says "Preview build": browsing, research and the risk
+disclosure work, while sign-in, checkout and live prices need the Railway URL.
+Once Railway is live, treat the Pages URL as the brochure and link the app domain
+from the nav, or add a redirect in `docs/index.html`.
+
+Why `docs/`: Pages can only publish from the repository root or `/docs`, and the
+API must not expose `src/` or `prisma/` as static files.

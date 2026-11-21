@@ -7,8 +7,8 @@ PostgreSQL database, VIP billing and an operations panel.
 ```
 server (Fastify + TypeScript)  ──  PostgreSQL (Prisma)
         │
-        ├── public/            marketing site + member dashboard (static, no build step)
-        ├── public/admin/      operations console (users, signals, research, billing)
+        ├── docs/              marketing site + member dashboard (also served by GitHub Pages)
+        ├── docs/admin/        operations console (users, signals, research, billing)
         └── /api/*             JSON API
 ```
 

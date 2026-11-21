@@ -136,7 +136,7 @@ export async function buildApp() {
   await app.register(adminRoutes);
 
   await app.register(fastifyStatic, {
-    root: path.join(__dirname, '..', 'public'),
+    root: path.join(__dirname, '..', 'docs'),
     prefix: '/',
     index: ['index.html'],
     maxAge: isProd ? '1h' : 0,

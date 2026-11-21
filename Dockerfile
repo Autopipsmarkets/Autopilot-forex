@@ -18,6 +18,6 @@ COPY package*.json ./
 COPY prisma ./prisma
 RUN npm ci --omit=dev && npx prisma generate && npm cache clean --force
 COPY --from=build /app/dist ./dist
-COPY public ./public
+COPY docs ./docs
 EXPOSE 8080
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/server.js"]
