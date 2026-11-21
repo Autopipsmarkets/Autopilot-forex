@@ -31,6 +31,15 @@ setup to maintain and no second hosting bill.
 | Ops | `/health`, `/ready` (DB probe), structured logs, graceful shutdown, rate limiting, strict CSP, CSRF guard, request validation |
 | Tests | 10 unit tests, 24 API end-to-end checks, headless UI smoke test |
 
+## Deploy
+
+Step-by-step for Railway (2026 UI, Railpack/Dockerfile, trial limits, Stripe,
+M-Pesa, verification checklist): **[DEPLOY_RAILWAY.md](DEPLOY_RAILWAY.md)**.
+Current state of the build: **[STATUS.md](STATUS.md)**.
+
+There is intentionally no `railway.json` — Railway deprecated Config as Code
+(hard cutoff 2026-12-01). The `Dockerfile` is the build and start contract.
+
 ## Local setup
 
 ```bash

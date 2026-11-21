@@ -18,14 +18,26 @@ import { billingRoutes } from './modules/billing.routes';
 import { adminRoutes } from './modules/admin.routes';
 import { webhookRoutes } from './modules/webhooks.routes';
 
+function prettyTransportAvailable(): boolean {
+  try {
+    require.resolve('pino-pretty');
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function buildApp() {
+  // Never depend on a dev-only transport in a production image.
+  const usePretty = !isProd && prettyTransportAvailable();
+
   const app = Fastify({
-    logger: isProd
-      ? { level: 'info' }
-      : {
+    logger: usePretty
+      ? {
           level: 'debug',
           transport: { target: 'pino-pretty', options: { translateTime: 'HH:MM:ss', ignore: 'pid,hostname' } },
-        },
+        }
+      : { level: isProd ? 'info' : 'debug' },
     trustProxy: true,
     bodyLimit: 1_000_000,
     disableRequestLogging: false,
