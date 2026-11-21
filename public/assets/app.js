@@ -485,6 +485,15 @@ function initContact() {
 
 function initBanner() {
   const params = new URLSearchParams(window.location.search);
+
+  // GitHub Pages is a static preview: say so instead of failing silently.
+  if (window.location.hostname.endsWith('github.io')) {
+    banner(
+      'Preview build. Accounts, payments and live prices run on the application server, not on GitHub Pages.',
+      'warn',
+    );
+    return;
+  }
   if (params.get('verified') === '1') banner('Email verified. Welcome aboard.', 'ok');
   if (params.get('verified') === 'invalid') banner('That verification link is invalid or expired.', 'err');
   if (params.get('checkout') === 'success') banner('Payment received. Your VIP access activates as soon as the provider confirms.', 'ok');
