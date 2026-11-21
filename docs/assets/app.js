@@ -1,6 +1,8 @@
 /* Autopilot Forex — member app. Talks to the platform API on the same origin. */
 'use strict';
 
+const IS_PREVIEW = window.location.hostname.endsWith('github.io');
+
 const state = {
   user: null,
   membership: null,
@@ -85,7 +87,8 @@ async function loadSite() {
     state.capabilities = site.capabilities || {};
     renderPlans();
   } catch (error) {
-    console.error(error);
+    if (IS_PREVIEW) $('planNote').textContent = 'Membership plans are served by the application server.';
+    else console.error(error);
   }
 }
 
@@ -133,7 +136,9 @@ async function loadMarkets() {
   } catch (error) {
     badge.className = 'badge warn';
     badge.textContent = 'unavailable';
-    rows.innerHTML = `<div class="skeleton">${esc(error.message)}</div>`;
+    rows.innerHTML = IS_PREVIEW
+      ? '<div class="skeleton">Live quotes are served by the application server.</div>'
+      : `<div class="skeleton">${esc(error.message)}</div>`;
   }
 }
 
@@ -155,7 +160,9 @@ async function loadPosts() {
       )
       .join('');
   } catch {
-    container.innerHTML = '<div class="card"><h3>Research</h3><p class="muted">Could not load posts.</p></div>';
+    container.innerHTML = IS_PREVIEW
+      ? '<div class="card"><h3>Research</h3><p class="muted">Articles are published from the admin console on the application server.</p></div>'
+      : '<div class="card"><h3>Research</h3><p class="muted">Could not load posts.</p></div>';
   }
 }
 
@@ -487,7 +494,7 @@ function initBanner() {
   const params = new URLSearchParams(window.location.search);
 
   // GitHub Pages is a static preview: say so instead of failing silently.
-  if (window.location.hostname.endsWith('github.io')) {
+  if (IS_PREVIEW) {
     banner(
       'Preview build. Accounts, payments and live prices run on the application server, not on GitHub Pages.',
       'warn',
