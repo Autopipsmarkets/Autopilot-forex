@@ -31,14 +31,65 @@ setup to maintain and no second hosting bill.
 | Ops | `/health`, `/ready` (DB probe), structured logs, graceful shutdown, rate limiting, strict CSP, CSRF guard, request validation |
 | Tests | 10 unit tests, 24 API end-to-end checks, headless UI smoke test |
 
-## Deploy
+## Deploy to Railway
 
-Step-by-step for Railway (2026 UI, Railpack/Dockerfile, trial limits, Stripe,
-M-Pesa, verification checklist): **[DEPLOY_RAILWAY.md](DEPLOY_RAILWAY.md)**.
-Current state of the build: **[STATUS.md](STATUS.md)**.
+Full detail, troubleshooting and provider setup live in
+**[DEPLOY_RAILWAY.md](DEPLOY_RAILWAY.md)**. Current build state:
+**[STATUS.md](STATUS.md)**. The short version:
 
-There is intentionally no `railway.json` — Railway deprecated Config as Code
-(hard cutoff 2026-12-01). The `Dockerfile` is the build and start contract.
+1. **Verify the account** at <https://railway.com/verify> (sign in with GitHub).
+   Unverified accounts get a *Limited Trial* with restricted outbound traffic, so
+   Stripe, Resend and Twelve Data fail even though the site loads.
+2. **New Project → Deploy from GitHub repo** → `Autopipsmarkets/Autopilot-forex`,
+   branch `main`. Railway detects the `Dockerfile` and builds it.
+3. **New → Database → Add PostgreSQL.** Keep the service name `Postgres`.
+4. On the web service, **Variables → Add Reference**:
+   `DATABASE_URL` = `${{Postgres.DATABASE_URL}}`.
+5. Add the rest:
+
+   ```bash
+   NODE_ENV=production
+   APP_URL=https://YOUR-DOMAIN        # no trailing slash
+   JWT_SECRET=$(openssl rand -base64 48)
+   ADMIN_EMAIL=you@yourdomain.com
+   ADMIN_PASSWORD=a-strong-password
+   ```
+
+6. **Settings → Networking → Generate Domain**, copy it into `APP_URL`, redeploy.
+   A mismatched `APP_URL` makes login appear to work and then immediately forget
+   the session (the cookie is `Secure` and host-bound).
+7. **Settings → Deploy**: Healthcheck Path `/health`, timeout `120`.
+8. After the first successful deploy, create the owner account once:
+
+   ```bash
+   # Railway service shell, or locally against Postgres → DATABASE_PUBLIC_URL
+   npm run db:seed
+   ```
+
+   Then sign in at `https://YOUR-DOMAIN/admin/`.
+
+Feature keys can be added later; without them the API returns `503
+not_configured` and the UI disables the matching button:
+
+```bash
+RESEND_API_KEY=                 # verification + reset emails
+STRIPE_SECRET_KEY=              # cards
+STRIPE_WEBHOOK_SECRET=
+STRIPE_PRICE_VIP_MONTHLY=
+INTASEND_PUBLISHABLE_KEY=       # M-Pesa
+INTASEND_SECRET_KEY=
+INTASEND_WEBHOOK_CHALLENGE=
+INTASEND_SANDBOX=true
+TWELVE_DATA_API_KEY=            # live quotes
+```
+
+There is intentionally no `railway.json`: Railway deprecated Config as Code and
+stops reading it on **2026-12-01**. The `Dockerfile` is the build and start
+contract; migrations run from its `CMD`.
+
+**Cost note:** the trial is $5 for 30 days, then the Free plan gives $1/month and
+sleeps services after 5–10 idle minutes. A sleeping service can miss a Stripe
+webhook while it wakes, so budget for Hobby ($5/month) once you take payments.
 
 ## Local setup
 
