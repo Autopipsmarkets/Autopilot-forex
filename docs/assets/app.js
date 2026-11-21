@@ -147,7 +147,7 @@ async function loadPosts() {
     }
     container.innerHTML = data.items
       .map(
-        (p) => `<a class="card" href="/post.html?slug=${encodeURIComponent(p.slug)}">
+        (p) => `<a class="card" href="post.html?slug=${encodeURIComponent(p.slug)}">
           <span class="badge ${p.vipOnly ? 'vip' : ''}">${p.vipOnly ? 'VIP' : esc(p.category)}</span>
           <h3>${esc(p.title)}</h3>
           <p>${esc(p.excerpt || '')}</p>

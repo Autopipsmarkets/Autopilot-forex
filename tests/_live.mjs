@@ -1,0 +1,10 @@
+import puppeteer from 'puppeteer-core';
+const b = await puppeteer.launch({executablePath:'/usr/bin/google-chrome',headless:'new',args:['--no-sandbox']});
+const p = await b.newPage();
+await p.setViewport({width:1280,height:820});
+await p.goto('https://autopipsmarkets.github.io/Autopilot-forex/', {waitUntil:'networkidle2', timeout:45000});
+console.log('BANNER:', (await p.$eval('#banner', e=>e.textContent)).slice(0,120));
+console.log('PLANS:', await p.$$eval('#planBox button[data-plan]', e=>e.length));
+console.log('BADGE:', await p.$eval('#marketBadge', e=>e.textContent));
+await p.screenshot({path:'/tmp/shot-pages.png'});
+await b.close();
